@@ -25,7 +25,7 @@ const int highNeutral = 1540;
 const int motorNeutral = 1500;
 
 //This is deadzone threshold on the joystick because the resting position of the joystick varries. Making this value bigger will reqire the user to move the joystick further before the code starts using the joystick values
-const int joystickDeadzone = 7500;
+const int joystickDeadzone = 10000;
 
 const int backLeftPin = 22;  //Back Left Motor pin
 int backLeftSpeed = 1500; //Back Left Motor starting speed
@@ -96,6 +96,8 @@ short joyYFilteredPrev = 0;
 //Joystick turret value
 short turretJoyX = 0;
 
+int limitSwitchSensor = 0;
+
 //Variable to keep track of whether we are driving in any direction
 bool driving = false;
 
@@ -112,7 +114,7 @@ bool airPressureSensor = true;
 
 bool arm = false;
 
-bool limitSwitchSensor = false;
+//bool limitSwitchSensor = false;
 
 //Initialization for USB shield
 USB Usb;
@@ -188,20 +190,14 @@ void limitSwitch() {
 void loop()
 {
   compressorRun();
-  limitSwitch();
+  //limitSwitch();
 
   Usb.Task();
   if (Xbox.XboxReceiverConnected) {
     //This if statement makes sure that the motors will run only when the controller is connected. The motors will stop running when the controller is disconnected. This is the only way to disable the system other than cutting power.
     if (Xbox.Xbox360Connected[controlNum]) {
 
-      //We start by saying we are not shooting, driving, or collecting
-      if (joyYFiltered < 1500 || joyYFiltered > 1500) {
-        driving = true;
-      }
-      else {
-        driving = false;
-      }
+      driving = false;
       shooting = false;
 
       //We have to use the "Val" to seperate it from LeftHatX which is a different varible in the library
@@ -309,7 +305,7 @@ void loop()
         bool drivingReverse = joyY < 1300;
 
         if (joyY <= lowNeutral || joyY >= highNeutral) {
-          backLeftSpeed = frontLeftSpeed = backRightSpeed = frontRightSpeed = joyYFiltered;   //Sets the speed for all motors based on the Forward/Reverse of the joystick
+          backLeftSpeed = frontLeftSpeed = backRightSpeed = frontRightSpeed = joyY;   //Sets the speed for all motors based on the Forward/Reverse of the joystick
         }
 
         int absJoyX = abs(joyX);
