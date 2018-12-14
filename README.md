@@ -20,3 +20,5 @@ These are the pins on the arduino which you connect to the signal wire of the pw
 | 42  | Input pin for the arm height limit switch |
 | 44  | Piston relay pin |
 | 46  | Piston relay pin |
+
+![alt text](https://github.com/team2059/Arduino-Xbox-Ford/blob/master/Ford%20Xbox%20Controller%20Button%20Descriptions.jpg)
