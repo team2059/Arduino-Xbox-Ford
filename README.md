@@ -1,5 +1,5 @@
 # Arduino-Xbox-Ford
-Arduino code for the wireless xbox controller system used on Trillian.
+Arduino code for the wireless xbox controller system used on Ford.
 
 You must install the libraries in the "Required Libraries" folder to compile the arduino sketch.
 
